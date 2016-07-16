@@ -1,5 +1,6 @@
 #include "utils.h"
 #include <globals.h>
+#include <seven_seg.h>
 
 volatile byte mode = 0;
 char DeviceName[DEVICE_NAME_SIZE] = "cupboard-multi-switch";
@@ -60,7 +61,7 @@ void ChangeMode( int newMode )
 
   //TODO: fix for esp EEPROM.put( ModeAddress, mode ); // save to eprom
 
-  // TODO: SetLeds();
+  SetLeds();
 }
 
 char* GetDeviceName()

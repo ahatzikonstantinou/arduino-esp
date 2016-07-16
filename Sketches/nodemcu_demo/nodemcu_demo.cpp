@@ -10,6 +10,7 @@
 #include <utils.h>
 #include <button.h>
 #include <seven_seg.h>
+#include <PubSubClient.h> //https://github.com/knolleary/pubsubclient, http://pubsubclient.knolleary.net/, http://pubsubclient.knolleary.net/api.html
 
 const char* ssid = "Wind WiFi 172839";
 const char* password = "312ggp12";
@@ -42,6 +43,7 @@ void setup()
 
 	Switch( false ); // start with the relay switched off
 
+	InitLeds();
 	SetLeds();
 
 	// setup wifi
