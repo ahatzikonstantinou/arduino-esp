@@ -9,6 +9,7 @@
 #include <globals.h>
 #include <utils.h>
 #include <button.h>
+#include <seven_seg.h>
 
 const char* ssid = "Wind WiFi 172839";
 const char* password = "312ggp12";
@@ -41,22 +42,24 @@ void setup()
 
 	Switch( false ); // start with the relay switched off
 
+	SetLeds();
+
 	// setup wifi
-	// SetupWifi( ssid, password );
+	SetupWifi( ssid, password );
 
 	// Start the server
-	// server.begin();
-	// Serial.println("Server started");
+	server.begin();
+	Serial.println("Server started");
 
 	// Print the IP address
-  // Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP());
 }
 
 int i=0;
 int max_i = 3;
 void loop()
 {
-	// DoWiFi( server, Toggle, Switch );  // we always read wifi to be able to set mode from wifi no matter what current mode is
+	DoWiFi( server, Toggle, Switch );  // we always read wifi to be able to set mode from wifi no matter what current mode is
 
 	ReadButton();
 

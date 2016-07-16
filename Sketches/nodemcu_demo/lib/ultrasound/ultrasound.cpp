@@ -112,7 +112,7 @@ float CirclSampleUltra( int MaxDistance, int MinDistance, byte TriggerPin, byte 
   }
 
   // Serial.println( "Distance: " + String( avg ) + ", outliers: " + String( outliers ) );
-  Serial.println( "Distance: " + String(avg) + " (retries: " + String( tries ) + ")" );
+  // Serial.println( "Distance: " + String(avg) + " (retries: " + String( tries ) + ")" );
   return avg;
 }
 
@@ -231,6 +231,6 @@ float SampleUltra( int MaxDistance, int MinDistance, byte TriggerPin, byte EchoP
   // float distance = SnglSampleUltra( MaxDistance, MinDistance, TriggerPin, EchoPin );
   // return IntSampleUltra( TriggerPin, EchoPin );
   float distance = CirclSampleUltra( MaxDistance, MinDistance, TriggerPin, EchoPin );
-  Serial.println( "Distance: " + String( distance ) );
+  // Serial.println( "Distance: " + String( distance ) );
   return distance;
 }

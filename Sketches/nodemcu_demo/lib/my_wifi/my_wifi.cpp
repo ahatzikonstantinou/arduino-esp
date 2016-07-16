@@ -1,6 +1,9 @@
 #include "my_wifi.h"
+#include "seven_seg.h"
 #include <globals.h>
 #include <utils.h>
+
+byte wifiState = WIFI_STATE_NOT_SETUP; // set to WIFI_STATE_NOT_SETUP
 
 /*
  * Auxilliary definitions
@@ -146,15 +149,19 @@ void EspSendName( WiFiClient& client )
  */
  void SetupWifi( const char* ssid, const char* password )
  {
-   WiFi.begin(ssid, password);
- 	while (WiFi.status() != WL_CONNECTED)
- 	{
- 		delay(500);
- 	  Serial.print(".");
- 	}
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      wifiState = WIFI_STATE_SETTING_UP;
+      SetLeds();
+      delay(500);
+      Serial.print(".");
+    }
 
- 	Serial.println("");
- 	Serial.println("WiFi connected");
+    Serial.println("");
+    Serial.println("WiFi connected");
+    wifiState = WIFI_STATE_OK;
+    SetLeds();
  }
 
  void DoWiFi( WiFiServer& server, void (*Toggle)(), void (*Switch)( bool ) )
@@ -274,4 +281,9 @@ void EspSendName( WiFiClient& client )
 
    // 	client.flush();
     client.stop();
+ }
+
+ byte GetWifiState()
+ {
+   return wifiState;
  }
