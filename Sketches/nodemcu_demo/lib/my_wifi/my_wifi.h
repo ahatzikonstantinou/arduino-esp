@@ -13,8 +13,14 @@
 
 void SetupWifi( const char* ssid, const char* password );
 
-void DoWiFi( WiFiServer& server, void (*Toggle)(), void (*Switch)( bool ) );
+void DoHttpWiFi( WiFiServer& server, void (*Toggle)(), void (*Switch)( bool ) );
 
 byte GetWifiState();
+
+String CreateHtmlStatus();
+String CreateHtmlMode();
+String CreateHtmlState();
+
+void EspSend( String content, WiFiClient& client );
 
 #endif

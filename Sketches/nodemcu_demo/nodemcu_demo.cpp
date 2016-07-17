@@ -10,14 +10,14 @@
 #include <utils.h>
 #include <button.h>
 #include <seven_seg.h>
-#include <PubSubClient.h> //https://github.com/knolleary/pubsubclient, http://pubsubclient.knolleary.net/, http://pubsubclient.knolleary.net/api.html
+#include <EEPROM.h>
 
 const char* ssid = "Wind WiFi 172839";
 const char* password = "312ggp12";
 
 // Create an instance of the server
 // specify the port to listen on as an argument
-WiFiServer server(80);
+// WiFiServer server(80);
 
 void setup()
 {
@@ -49,9 +49,9 @@ void setup()
 	// setup wifi
 	SetupWifi( ssid, password );
 
-	// Start the server
-	server.begin();
-	Serial.println("Server started");
+	// // Start the server
+	// server.begin();
+	// Serial.println("Server started");
 
 	// Print the IP address
   Serial.println(WiFi.localIP());
@@ -61,7 +61,7 @@ int i=0;
 int max_i = 3;
 void loop()
 {
-	DoWiFi( server, Toggle, Switch );  // we always read wifi to be able to set mode from wifi no matter what current mode is
+	// DoHttpWiFi( server, Toggle, Switch );  // we always read wifi to be able to set mode from wifi no matter what current mode is
 
 	ReadButton();
 

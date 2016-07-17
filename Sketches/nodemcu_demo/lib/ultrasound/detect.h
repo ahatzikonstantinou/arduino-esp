@@ -11,13 +11,24 @@
 #define TwoWaveDetected 1
 #define TwoWaveNotDetected 2
 
-
-#define TWO_WAVE_DURATION 500UL  // the max duration of a two wave gesture
-#define TWO_WAVE_DELAY 300UL  // the delay betweeb two waves in a two wave gesture
-#define ONE_WAVE_DELAY 300UL  // the delay until the user moves the hand away for a one wave gesture
-
 byte DetectPersonPresent();
 byte DetectPersonAbsent();
 byte DetectOneWave();
 byte DetectTwoWave();
+
+unsigned int GetUltraDistPerson();  //in centimeters. Beyond that relay is switched off. Less than this, relai is swtiched on.
+void SetUltraDistPerson( unsigned int d );
+unsigned int GetUltraDistWave();  //in centimeters. Beyond that relay is switched off. Less than this, relai is swtiched on.
+void SetUltraDistWave( unsigned int d );
+unsigned long GetPersonPresentDelay(); // recheck after x millisenonds to ensure a person is still in front of the ultrasound sensor
+void SetPersonPresentDelay( unsigned long d );
+unsigned long GetPersonAbsentDelay(); // recheck after x millisenonds to ensure a person is still away from the ultrasound sensor
+void SetPersonAbsentDelay( unsigned long d );
+unsigned long GetTwoWaveDuration();  // the max duration of a two wave gesture
+void SetTwoWaveDuration( unsigned long d );
+unsigned long GetTwoWaveDelay();  // the delay betweeb two waves in a two wave gesture
+void SetTwoWaveDelay( unsigned long d );
+unsigned long GetOneWayDelay();  // the delay until the user moves the hand away for a one wave gesture
+void SetOneWayDelay( unsigned long d );
+
 #endif

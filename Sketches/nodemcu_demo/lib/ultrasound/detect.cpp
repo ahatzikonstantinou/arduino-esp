@@ -2,6 +2,84 @@
 #include "ultrasound.h"
 #include "detect.h"
 
+unsigned int ULTRA_DIST_PERSON = 100;  //in centimeters. Beyond that relay is switched off. Less than this, relai is swtiched on.
+unsigned int ULTRA_DIST_WAVE = 30;  //in centimeters. Beyond that relay is switched off. Less than this, relai is swtiched on.
+unsigned long PERSON_PRESENT_DELAY = 2000UL; // recheck after x millisenonds to ensure a person is still in front of the ultrasound sensor
+unsigned long PERSON_ABSENT_DELAY = 4000UL; // recheck after x millisenonds to ensure a person is still away from the ultrasound sensor
+unsigned long TWO_WAVE_DURATION = 500UL;  // the max duration of a two wave gesture
+unsigned long TWO_WAVE_DELAY = 300UL;  // the delay betweeb two waves in a two wave gesture
+unsigned long ONE_WAVE_DELAY = 300UL;  // the delay until the user moves the hand away for a one wave gesture
+
+unsigned int GetUltraDistPerson()
+{
+  return ULTRA_DIST_PERSON;
+}
+
+void SetUltraDistPerson( unsigned int d )
+{
+  ULTRA_DIST_PERSON = d;
+}
+
+unsigned int GetUltraDistWave()
+{
+  return ULTRA_DIST_WAVE;
+}
+
+void SetUltraDistWave( unsigned int d )
+{
+  ULTRA_DIST_WAVE = d;
+}
+
+unsigned long GetPersonPresentDelay()
+{
+  return PERSON_PRESENT_DELAY;
+}
+
+void SetPersonPresentDelay( unsigned long d )
+{
+  PERSON_PRESENT_DELAY = d;
+}
+
+unsigned long GetPersonAbsentDelay()
+{
+  return PERSON_ABSENT_DELAY;
+}
+
+void SetPersonAbsentDelay( unsigned long d )
+{
+  PERSON_ABSENT_DELAY = d;
+}
+
+unsigned long GetTwoWaveDuration()
+{
+  return TWO_WAVE_DURATION;
+}
+
+void SetTwoWaveDuration( unsigned long d )
+{
+  TWO_WAVE_DURATION = d;
+}
+
+unsigned long GetTwoWaveDelay()
+{
+  return TWO_WAVE_DELAY;
+}
+
+void SetTwoWaveDelay( unsigned long d )
+{
+  TWO_WAVE_DELAY = d;
+}
+
+unsigned long GetOneWayDelay()
+{
+  return ONE_WAVE_DELAY;
+}
+
+void SetOneWayDelay( unsigned long d )
+{
+  ONE_WAVE_DELAY = d;
+}
+
 
 unsigned long PersonPresentTimer = 0UL;
 bool PersonPresentStarted = false;
