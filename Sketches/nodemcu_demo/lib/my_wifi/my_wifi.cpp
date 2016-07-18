@@ -5,6 +5,7 @@
 #include <PubSubClient.h> //https://github.com/knolleary/pubsubclient, http://pubsubclient.knolleary.net/, http://pubsubclient.knolleary.net/api.html
 #include "espsend.h"
 #include "http_espsend.h"
+#include "mqtt_espsend.h"
 
 byte wifiState = WIFI_STATE_NOT_SETUP; // set to WIFI_STATE_NOT_SETUP
 
@@ -22,6 +23,7 @@ PubSubClient client(espClient);
 /*
 * Auxilliary functions
 */
+void ProcessRequest( String req, EspSendClass& espsend );
 
 void Log( byte actor, byte target, String value )
 {
@@ -193,12 +195,21 @@ void callback(char* topic, byte* payload, unsigned int length)
 
   String msg = String( ( char * ) payload );
 
-
+  String mqttTopic = String( "home/%s" ) + GetDeviceName();
+  EspSendClass espsend = MQTTEspSend( client, mqttTopic );
+  ProcessRequest( msg, espsend );
 }
 
 /*
 * API functions
 */
+
+void StartMQTT()
+{
+  client.setServer(mqtt_server, 1883);
+	client.setCallback(callback);
+}
+
 void SetupWifi( const char* ssid, const char* password )
 {
   WiFi.begin(ssid, password);
@@ -214,20 +225,7 @@ void SetupWifi( const char* ssid, const char* password )
   Serial.println("WiFi connected");
   wifiState = WIFI_STATE_OK;
   SetLeds();
-
-  client.setServer(mqtt_server, 1883);
-  client.setCallback(callback);
 }
-
-void CheckMQTTClient()
-{
-  if( !client.connected() )
-  {
-    reconnect();
-  }
-}
-
-void ProcessRequest( String req, EspSendClass espsend );
 
 void DoHttpWiFi( WiFiServer& server, void (*Toggle)(), void (*Switch)( bool ) )
 {
@@ -252,6 +250,15 @@ void DoHttpWiFi( WiFiServer& server, void (*Toggle)(), void (*Switch)( bool ) )
 
   EspSendClass espsend = HttpEspSend( client );
   ProcessRequest( req, espsend );
+}
+
+void DoMQTT()
+{
+  if( !client.connected() )
+  {
+    reconnect();
+  }
+  client.loop();
 }
 
 void ProcessRequest( String req, EspSendClass& espsend )

@@ -53,6 +53,9 @@ void setup()
 	// server.begin();
 	// Serial.println("Server started");
 
+	// Start MQTT
+	StartMQTT();
+
 	// Print the IP address
   Serial.println(WiFi.localIP());
 }
@@ -62,6 +65,7 @@ int max_i = 3;
 void loop()
 {
 	// DoHttpWiFi( server, Toggle, Switch );  // we always read wifi to be able to set mode from wifi no matter what current mode is
+	DoMQTT();
 
 	ReadButton();
 

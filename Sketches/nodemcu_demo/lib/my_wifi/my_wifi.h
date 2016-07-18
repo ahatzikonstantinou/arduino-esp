@@ -12,8 +12,10 @@
 #define WIFI_STATE_ERROR 5
 
 void SetupWifi( const char* ssid, const char* password );
+void StartMQTT();
 
 void DoHttpWiFi( WiFiServer& server, void (*Toggle)(), void (*Switch)( bool ) );
+void DoMQTT();
 
 byte GetWifiState();
 
